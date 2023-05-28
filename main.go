@@ -8,21 +8,14 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	"github.com/joho/godotenv"
 )
 
 func main() {
-	err := godotenv.Load()
-
-	if err != nil {
-	  fmt.Println("Error loading .env file")
-	}
-
 	app := gin.Default()
-	f, err := os.OpenFile(os.Getenv("STORAGE_FILE"), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	f, err := os.OpenFile(os.Getenv("STORAGE_FILE"), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0777)
 
 	if err != nil {
-		fmt.Println("Couldn't start server")
+		fmt.Printf("Couldn't open file %s", os.Getenv("STORAGE_FILE"))
 		return
 	}
 
